@@ -9,7 +9,8 @@ ORDER BY rental_count DESC;
 CREATE TEMPORARY TABLE total_paid AS
 SELECT ri.customer_id, SUM(p.amount) AS total_amount_per_customer
 FROM rental_info ri
-JOIN payment p ON ri.customer_id = p.customer_id
+JOIN rental AS r ON ri.customer_id = r.customer_id
+JOIN payment p ON r.customer_id = p.customer_id
 GROUP BY customer_id
 ORDER BY total_amount_per_customer;
 
